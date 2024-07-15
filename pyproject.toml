@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "linhist"
+version = "0.1.0"
+authors = [
+  { name="Wilton Jaciel Loch", email="wilton.loch@gmail.com" },
+]
+description = "A tool to help you maintain a linear Git history"
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = ["gitpython"]
+
+[project.urls]
+Homepage = "https://github.com/wiltonloch/linhist"
+Issues = "https://github.com/wiltonloch/linhist/issues"
+
+[project.scripts]
+linhist = "linhist:main"
