@@ -35,6 +35,11 @@ check_merge_parser.add_argument(
 
 args = parser.parse_args()
 
+# Checks if no arguments where passed and if so prints help information
+if len(sys.argv) == 1:
+    parser.print_help()
+    sys.exit(1)
+
 repository_path = args.repository
 source = args.source
 target = args.target
