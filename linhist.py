@@ -3,8 +3,7 @@
 import sys
 import argparse
 import logging
-from git import Repo
-from git import InvalidGitRepositoryError
+from git import Repo, InvalidGitRepositoryError, GitCommandError
 
 
 def main():
@@ -57,16 +56,22 @@ def main():
         sys.exit(1)
 
     if source not in repository.branches:
-        logger.error(
-            'The argument passed to "--source" is not an existing branch in the Git repository'
-        )
-        sys.exit(1)
+        try:
+            repository.git.switch(source)
+        except GitCommandError:
+            logger.error(
+                'The argument passed to "--source" is not an existing branch in the Git repository'
+            )
+            sys.exit(1)
 
     if target not in repository.branches:
-        logger.error(
-            'The argument passed to "--target" is not an existing branch in the Git repository'
-        )
-        sys.exit(1)
+        try:
+            repository.git.switch(target)
+        except GitCommandError:
+            logger.error(
+                'The argument passed to "--target" is not an existing branch in the Git repository'
+            )
+            sys.exit(1)
 
     common_ancestor = repository.merge_base(source, target)[0]
     target_tip = repository.rev_parse(target)
